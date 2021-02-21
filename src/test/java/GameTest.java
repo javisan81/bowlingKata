@@ -17,4 +17,12 @@ public class GameTest {
         assertThat(bowling.score(), is(1));
     }
 
+    @Test
+    public void oneFrameTwoRolls(){
+        Game bowling = new Game();
+        bowling.roll(1);
+        bowling.roll(1);
+        assertThat(bowling.score(), is(2));
+    }
+
 }
