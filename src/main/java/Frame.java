@@ -1,6 +1,16 @@
+import java.util.HashMap;
+import java.util.Map;
+
 public class Frame {
     private int numberOfRollsPlayed = 0;
     private int totalScore = 0;
+
+    private final static Map<Integer, BonusContext> bonusByNumberOfRollsPlayed = new HashMap<Integer, BonusContext>() {
+        {
+            this.put(1, BonusContext.SquareBonus());
+            this.put(2, BonusContext.SpareBonus());
+        }
+    };
 
     public void roll(int pins) {
         numberOfRollsPlayed++;
@@ -8,33 +18,29 @@ public class Frame {
     }
 
     public int score(BonusContext bonusContext) {
-        int result = bonusContext.isBonusActivated() ? 2 * totalScore : totalScore;
-        bonusContext.newFramePlayed();
-        return result;
+        return bonusContext.calculateScore(this.totalScore);
     }
 
     public boolean isOpen() {
         return !isSquare() && numberOfRollsPlayed < 2;
     }
 
-    private boolean isSpare() {
-        return totalScore == 10 && numberOfRollsPlayed == 2;
+    public BonusContext nextBonusContext(BonusContext currentBonus) {
+        if (currentBonus.isBonusActivated()) {
+            return currentBonus;
+        }
+        return totalScore == 10 ? bonusContext() : BonusContext.NoBonusApply();
     }
 
     private boolean isSquare() {
-        return numberOfRollsPlayed == 1 && totalScore == 10;
+        return allPinsDown() && numberOfRollsPlayed == 1;
     }
 
-    public BonusContext nextBonusContext(BonusContext currentBonus) {
-        if(currentBonus.isBonusActivated()){
-            return currentBonus;
-        }
-        if (this.isSpare()) {
-            return new BonusContext(1);
-        } else if (this.isSquare()) {
-            return new BonusContext(2);
-        }else {
-            return new BonusContext(0);
-        }
+    private boolean allPinsDown() {
+        return totalScore == 10;
+    }
+
+    private BonusContext bonusContext() {
+        return new BonusContext(bonusByNumberOfRollsPlayed.getOrDefault(numberOfRollsPlayed, BonusContext.NoBonusApply()));
     }
 }
