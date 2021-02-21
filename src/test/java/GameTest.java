@@ -3,10 +3,11 @@ import org.junit.jupiter.api.Test;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-public class BowlingKataTest {
+public class GameTest {
     @Test
     public void noFrame(){
-        Bowling bowling = new Bowling();
+        Game bowling = new Game();
         assertThat(bowling.score(), is(0));
     }
+
 }
