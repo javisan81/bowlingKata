@@ -10,11 +10,7 @@ public class Game {
             boolean bonusApply = bonusContext.isBonusActivated();
             result += frame.score(bonusApply);
             bonusContext.newFramePlayed();
-            if(frame.isSpare()) {
-                bonusContext = new BonusContext(1);
-            }else if(frame.isSquare()){
-                bonusContext = new BonusContext(2);
-            }
+            bonusContext = BonusContext.newBonusContext(frame, bonusContext);
         }
         return result;
     }
