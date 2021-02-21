@@ -7,15 +7,19 @@ public class Frame {
         totalScore += pins;
     }
 
-    public int score(boolean lastFrameIsSpare) {
-        return lastFrameIsSpare ? 2 * totalScore : totalScore;
+    public int score(boolean lastFrameIsSpare, boolean weAreInSquareBonus) {
+        return lastFrameIsSpare || weAreInSquareBonus ? 2 * totalScore : totalScore;
     }
 
     public boolean isOpen() {
-        return numberOfRollsPlayed < 2;
+        return !isSquare() && numberOfRollsPlayed < 2;
     }
 
     public boolean isSpare() {
         return totalScore == 10 && numberOfRollsPlayed == 2;
+    }
+
+    public boolean isSquare() {
+        return numberOfRollsPlayed == 1 && totalScore == 10;
     }
 }

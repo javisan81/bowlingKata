@@ -6,9 +6,17 @@ public class Game {
     public int score() {
         int result = 0;
         boolean isSpare = false;
+        boolean isSquare = false;
+        int numberOfFramesAfterSquare = 0;
         for (Frame frame : frames) {
-            result += frame.score(isSpare);
+            if (isSquare) {
+                numberOfFramesAfterSquare++;
+            } else {
+                numberOfFramesAfterSquare = 0;
+            }
+            result += frame.score(isSpare, isSquare);
             isSpare = frame.isSpare();
+            isSquare = frame.isSquare() || numberOfFramesAfterSquare == 1;
         }
         return result;
     }

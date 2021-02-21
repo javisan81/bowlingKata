@@ -50,4 +50,17 @@ public class GameTest {
         assertThat(bowling.score(), is(16));
     }
 
+    @Test
+    public void threeFramesFirsIsSquare(){
+        Game bowling = new Game();
+        bowling.roll(10);
+
+        bowling.roll(1);
+        bowling.roll(1);
+
+        bowling.roll(1);
+        bowling.roll(1);
+        assertThat(bowling.score(), is(18));
+    }
+
 }
