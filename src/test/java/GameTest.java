@@ -25,4 +25,15 @@ public class GameTest {
         assertThat(bowling.score(), is(2));
     }
 
+    @Test
+    public void twoFramesFirsIsSpare(){
+        Game bowling = new Game();
+        bowling.roll(9);
+        bowling.roll(1);
+
+        bowling.roll(1);
+        bowling.roll(1);
+        assertThat(bowling.score(), is(14));
+    }
+
 }
