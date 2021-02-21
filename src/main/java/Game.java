@@ -5,18 +5,16 @@ public class Game {
 
     public int score() {
         int result = 0;
-        boolean isSpare = false;
-        boolean isSquare = false;
-        int numberOfFramesAfterSquare = 0;
+        BonusContext bonusContext = new BonusContext(0);
         for (Frame frame : frames) {
-            if (isSquare) {
-                numberOfFramesAfterSquare++;
-            } else {
-                numberOfFramesAfterSquare = 0;
+            boolean bonusApply = bonusContext.isBonusActivated();
+            result += frame.score(bonusApply);
+            bonusContext.newFramePlayed();
+            if(frame.isSpare()) {
+                bonusContext = new BonusContext(1);
+            }else if(frame.isSquare()){
+                bonusContext = new BonusContext(2);
             }
-            result += frame.score(isSpare, isSquare);
-            isSpare = frame.isSpare();
-            isSquare = frame.isSquare() || numberOfFramesAfterSquare == 1;
         }
         return result;
     }

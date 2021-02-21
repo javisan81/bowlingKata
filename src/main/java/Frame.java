@@ -7,8 +7,8 @@ public class Frame {
         totalScore += pins;
     }
 
-    public int score(boolean lastFrameIsSpare, boolean weAreInSquareBonus) {
-        return lastFrameIsSpare || weAreInSquareBonus ? 2 * totalScore : totalScore;
+    public int score(boolean bonusApply) {
+        return bonusApply ? 2 * totalScore : totalScore;
     }
 
     public boolean isOpen() {
