@@ -29,14 +29,14 @@ public class Frame {
         if (currentBonus.isBonusActivated()) {
             return currentBonus;
         }
-        return totalScore == 10 ? bonusContext() : BonusContext.NoBonusApply();
+        return areAllPinsDown() ? bonusContext() : BonusContext.NoBonusApply();
     }
 
     private boolean isSquare() {
-        return allPinsDown() && numberOfRollsPlayed == 1;
+        return areAllPinsDown() && numberOfRollsPlayed == 1;
     }
 
-    private boolean allPinsDown() {
+    private boolean areAllPinsDown() {
         return totalScore == 10;
     }
 

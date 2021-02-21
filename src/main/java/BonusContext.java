@@ -1,13 +1,13 @@
-public class BonusContext implements Cloneable{
+public class BonusContext implements Cloneable {
     private final int howManyFramesApply;
     private int framesPlayedAfterBonusGained;
 
     public BonusContext(int howManyFramesApply) {
-        this.framesPlayedAfterBonusGained =0;
+        this.framesPlayedAfterBonusGained = 0;
         this.howManyFramesApply = howManyFramesApply;
     }
 
-    public BonusContext(BonusContext bonusContext){
+    public BonusContext(BonusContext bonusContext) {
         this(bonusContext.howManyFramesApply);
     }
 
