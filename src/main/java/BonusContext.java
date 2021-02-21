@@ -1,39 +1,17 @@
-public class BonusContext implements Cloneable {
-    private final int howManyFramesApply;
-    private int framesPlayedAfterBonusGained;
-
-    public BonusContext(int howManyFramesApply) {
-        this.framesPlayedAfterBonusGained = 0;
-        this.howManyFramesApply = howManyFramesApply;
+public interface BonusContext {
+    static SingleBonusContext NoBonusApply() {
+        return new SingleBonusContext(0);
     }
 
-    public BonusContext(BonusContext bonusContext) {
-        this(bonusContext.howManyFramesApply);
+    static SingleBonusContext SpareBonus() {
+        return new SingleBonusContext(1);
     }
 
-    public void newFramePlayed() {
-        framesPlayedAfterBonusGained++;
+    static SingleBonusContext SquareBonus() {
+        return new SingleBonusContext(2);
     }
 
-    public boolean isBonusActivated() {
-        return framesPlayedAfterBonusGained < howManyFramesApply;
-    }
+    boolean isBonusActivated();
 
-    public int calculateScore(int score) {
-        int result = this.isBonusActivated() ? 2 * score : score;
-        this.newFramePlayed();
-        return result;
-    }
-
-    public static BonusContext NoBonusApply() {
-        return new BonusContext(0);
-    }
-
-    public static BonusContext SpareBonus() {
-        return new BonusContext(1);
-    }
-
-    public static BonusContext SquareBonus() {
-        return new BonusContext(2);
-    }
+    int calculateScore(int score);
 }

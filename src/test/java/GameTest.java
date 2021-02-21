@@ -63,4 +63,17 @@ public class GameTest {
         assertThat(bowling.score(), is(18));
     }
 
+    @Test
+    public void threeFramesFirsIsSquareSecondIsSpare(){
+        Game bowling = new Game();
+        bowling.roll(10);
+
+        bowling.roll(9);
+        bowling.roll(1);
+
+        bowling.roll(1);
+        bowling.roll(1);
+        assertThat(bowling.score(), is(36));
+    }
+
 }

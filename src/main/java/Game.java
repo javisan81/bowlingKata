@@ -5,7 +5,7 @@ public class Game {
 
     public int score() {
         int result = 0;
-        BonusContext currentBonusContext = new BonusContext(0);
+        BonusContext currentBonusContext = new SingleBonusContext(0);
         for (Frame frame : frames) {
             result += frame.score(currentBonusContext);
             currentBonusContext = frame.nextBonusContext(currentBonusContext);

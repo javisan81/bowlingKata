@@ -5,7 +5,7 @@ public class Frame {
     private int numberOfRollsPlayed = 0;
     private int totalScore = 0;
 
-    private final static Map<Integer, BonusContext> bonusByNumberOfRollsPlayed = new HashMap<Integer, BonusContext>() {
+    private final static Map<Integer, SingleBonusContext> bonusByNumberOfRollsPlayed = new HashMap<Integer, SingleBonusContext>() {
         {
             this.put(1, BonusContext.SquareBonus());
             this.put(2, BonusContext.SpareBonus());
@@ -27,9 +27,13 @@ public class Frame {
 
     public BonusContext nextBonusContext(BonusContext currentBonus) {
         if (currentBonus.isBonusActivated()) {
-            return currentBonus;
+            return new MultipleBonusContext(currentBonus, calculateNextBonusContext());
         }
-        return areAllPinsDown() ? bonusContext() : BonusContext.NoBonusApply();
+        return calculateNextBonusContext();
+    }
+
+    private BonusContext calculateNextBonusContext() {
+        return areAllPinsDown() ? getBonusContext() : BonusContext.NoBonusApply();
     }
 
     private boolean isSquare() {
@@ -40,7 +44,7 @@ public class Frame {
         return totalScore == 10;
     }
 
-    private BonusContext bonusContext() {
-        return new BonusContext(bonusByNumberOfRollsPlayed.getOrDefault(numberOfRollsPlayed, BonusContext.NoBonusApply()));
+    private SingleBonusContext getBonusContext() {
+        return new SingleBonusContext(bonusByNumberOfRollsPlayed.getOrDefault(numberOfRollsPlayed, BonusContext.NoBonusApply()));
     }
 }
