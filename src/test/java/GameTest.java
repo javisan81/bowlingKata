@@ -10,4 +10,11 @@ public class GameTest {
         assertThat(bowling.score(), is(0));
     }
 
+    @Test
+    public void oneFrameOneRoll(){
+        Game bowling = new Game();
+        bowling.roll(1);
+        assertThat(bowling.score(), is(1));
+    }
+
 }

@@ -1,5 +1,10 @@
 public class Game {
+    private int totalScore = 0;
     public int score() {
-        return 0;
+        return totalScore;
+    }
+
+    public void roll(int pins) {
+        totalScore = pins;
     }
 }
