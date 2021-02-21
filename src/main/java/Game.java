@@ -5,12 +5,10 @@ public class Game {
 
     public int score() {
         int result = 0;
-        BonusContext bonusContext = new BonusContext(0);
+        BonusContext currentBonusContext = new BonusContext(0);
         for (Frame frame : frames) {
-            boolean bonusApply = bonusContext.isBonusActivated();
-            result += frame.score(bonusApply);
-            bonusContext.newFramePlayed();
-            bonusContext = BonusContext.newBonusContext(frame, bonusContext);
+            result += frame.score(currentBonusContext);
+            currentBonusContext = BonusContext.newBonusContext(frame, currentBonusContext);
         }
         return result;
     }
