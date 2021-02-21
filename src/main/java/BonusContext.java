@@ -13,17 +13,4 @@ public class BonusContext {
     public boolean isBonusActivated() {
         return framesPlayedAfterBonusGained < howManyFramesApply;
     }
-
-    public static BonusContext newBonusContext(Frame frame, BonusContext currentBonus) {
-        if(currentBonus.isBonusActivated()){
-            return currentBonus;
-        }
-        if (frame.isSpare()) {
-            return new BonusContext(1);
-        } else if (frame.isSquare()) {
-            return new BonusContext(2);
-        }else {
-            return new BonusContext(0);
-        }
-    }
 }

@@ -8,7 +8,7 @@ public class Game {
         BonusContext currentBonusContext = new BonusContext(0);
         for (Frame frame : frames) {
             result += frame.score(currentBonusContext);
-            currentBonusContext = BonusContext.newBonusContext(frame, currentBonusContext);
+            currentBonusContext = frame.nextBonusContext(currentBonusContext);
         }
         return result;
     }

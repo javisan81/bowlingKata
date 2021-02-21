@@ -17,11 +17,24 @@ public class Frame {
         return !isSquare() && numberOfRollsPlayed < 2;
     }
 
-    public boolean isSpare() {
+    private boolean isSpare() {
         return totalScore == 10 && numberOfRollsPlayed == 2;
     }
 
-    public boolean isSquare() {
+    private boolean isSquare() {
         return numberOfRollsPlayed == 1 && totalScore == 10;
+    }
+
+    public BonusContext nextBonusContext(BonusContext currentBonus) {
+        if(currentBonus.isBonusActivated()){
+            return currentBonus;
+        }
+        if (this.isSpare()) {
+            return new BonusContext(1);
+        } else if (this.isSquare()) {
+            return new BonusContext(2);
+        }else {
+            return new BonusContext(0);
+        }
     }
 }
