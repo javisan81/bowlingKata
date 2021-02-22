@@ -1,32 +1,32 @@
+import java.util.Arrays;
+
+import static java.util.Arrays.stream;
+
 public class TenthFrame implements Frame {
-    private int scoreRoll0 = 0;
-    private int scoreRoll1 = 0;
-    private int scoreRoll2 = 0;
+    private final int[] scores = new int[]{0, 0, 0};
     private int numberOfRollsPlayed = 0;
 
     @Override
     public boolean isOpen() {
-        return (scoreRoll0 + scoreRoll1 >= 10) ? numberOfRollsPlayed < 3 : numberOfRollsPlayed < 2;
+        return (sumScores() >= 10) ? numberOfRollsPlayed < 3 : numberOfRollsPlayed < 2;
+    }
+
+    private int sumScores() {
+        return stream(scores).sum();
     }
 
     public void roll(int pins) {
+        scores[numberOfRollsPlayed] = pins;
         numberOfRollsPlayed++;
-        if (numberOfRollsPlayed == 1) {
-            scoreRoll0 = pins;
-        } else if (numberOfRollsPlayed == 2) {
-            scoreRoll1 = pins;
-        } else {
-            scoreRoll2 = pins;
-        }
     }
 
     public int score(BonusContext bonusContext) {
-        int frameScore = scoreRoll0 + scoreRoll1 + scoreRoll2;
-        if (scoreRoll0 == 10) {
-            frameScore += scoreRoll1 + scoreRoll2;
+        int frameScore = sumScores();
+        if (scores[0] == 10) {
+            frameScore += scores[1] + scores[2];
         }
-        if (scoreRoll1 == 10 || (scoreRoll1+scoreRoll0 == 10)) {
-            frameScore += scoreRoll2;
+        if (scores[1] == 10 || (scores[1] + scores[0] == 10)) {
+            frameScore += scores[2];
         }
         return bonusContext.calculateScore(frameScore);
     }
