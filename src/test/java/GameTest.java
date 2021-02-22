@@ -1,24 +1,26 @@
 import org.junit.jupiter.api.Test;
 
+import java.util.stream.IntStream;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 public class GameTest {
     @Test
-    public void noFrame(){
+    public void noFrame() {
         Game bowling = new Game();
         assertThat(bowling.score(), is(0));
     }
 
     @Test
-    public void oneFrameOneRoll(){
+    public void oneFrameOneRoll() {
         Game bowling = new Game();
         bowling.roll(1);
         assertThat(bowling.score(), is(1));
     }
 
     @Test
-    public void oneFrameTwoRolls(){
+    public void oneFrameTwoRolls() {
         Game bowling = new Game();
         bowling.roll(1);
         bowling.roll(1);
@@ -26,7 +28,7 @@ public class GameTest {
     }
 
     @Test
-    public void twoFramesFirsIsSpare(){
+    public void twoFramesFirsIsSpare() {
         Game bowling = new Game();
         bowling.roll(9);
         bowling.roll(1);
@@ -37,7 +39,7 @@ public class GameTest {
     }
 
     @Test
-    public void threeFramesFirsIsSpare(){
+    public void threeFramesFirsIsSpare() {
         Game bowling = new Game();
         bowling.roll(9);
         bowling.roll(1);
@@ -51,7 +53,7 @@ public class GameTest {
     }
 
     @Test
-    public void threeFramesFirsIsSquare(){
+    public void threeFramesFirsIsSquare() {
         Game bowling = new Game();
         bowling.roll(10);
 
@@ -64,7 +66,7 @@ public class GameTest {
     }
 
     @Test
-    public void threeFramesFirsIsSquareSecondIsSpare(){
+    public void threeFramesFirsIsSquareSecondIsSpare() {
         Game bowling = new Game();
         bowling.roll(10);
 
@@ -77,7 +79,7 @@ public class GameTest {
     }
 
     @Test
-    public void fourFramesFirsIsSquareSecondIsSquare(){
+    public void fourFramesFirsIsSquareSecondIsSquare() {
         Game bowling = new Game();
         bowling.roll(10);
 
@@ -89,6 +91,16 @@ public class GameTest {
         bowling.roll(1);
         bowling.roll(1);
         assertThat(bowling.score(), is(40));
+    }
+
+    @Test
+    public void tenthFrame3SquaresRolls() {
+        Game bowling = new Game();
+        IntStream.range(0, 18).forEach(i -> bowling.roll(0));
+        bowling.roll(10);
+        bowling.roll(10);
+        bowling.roll(10);
+        assertThat(bowling.score(), is(60));
     }
 
 }

@@ -2,7 +2,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Frame {
-    private int numberOfRollsPlayed = 0;
+    protected int numberOfRollsPlayed = 0;
     private int totalScore = 0;
 
     private final static Map<Integer, SingleBonusContext> bonusByNumberOfRollsPlayed = new HashMap<Integer, SingleBonusContext>() {
@@ -40,7 +40,7 @@ public class Frame {
         return areAllPinsDown() && numberOfRollsPlayed == 1;
     }
 
-    private boolean areAllPinsDown() {
+    protected boolean areAllPinsDown() {
         return totalScore == 10;
     }
 

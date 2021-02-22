@@ -1,7 +1,11 @@
 import java.util.stream.IntStream;
 
 public class Game {
-    private final Frame[] frames = IntStream.range(0, 10).mapToObj(i -> new Frame()).toArray(Frame[]::new);
+    private final Frame[] frames = IntStream.range(0, 10).mapToObj(this::newFrame).toArray(Frame[]::new);
+
+    private Frame newFrame(int i) {
+        return i < 9 ? new Frame() : new TenthFrame();
+    }
 
     public int score() {
         int result = 0;
