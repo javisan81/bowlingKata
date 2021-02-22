@@ -1,4 +1,4 @@
-public class TenthFrame extends Frame {
+public class TenthFrame implements Frame {
     private int scoreRoll0 = 0;
     private int scoreRoll1 = 0;
     private int scoreRoll2 = 0;
