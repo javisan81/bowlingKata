@@ -25,7 +25,7 @@ public class TenthFrame implements Frame {
         if (scoreRoll0 == 10) {
             frameScore += scoreRoll1 + scoreRoll2;
         }
-        if (scoreRoll1 == 10 ) {
+        if (scoreRoll1 == 10 || (scoreRoll1+scoreRoll0 == 10)) {
             frameScore += scoreRoll2;
         }
         return bonusContext.calculateScore(frameScore);

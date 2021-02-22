@@ -103,4 +103,14 @@ public class GameTest {
         assertThat(bowling.score(), is(60));
     }
 
+    @Test
+    public void tenthFrame1SpareRolls() {
+        Game bowling = new Game();
+        IntStream.range(0, 18).forEach(i -> bowling.roll(0));
+        bowling.roll(1);
+        bowling.roll(9);
+        bowling.roll(10);
+        assertThat(bowling.score(), is(30));
+    }
+
 }
